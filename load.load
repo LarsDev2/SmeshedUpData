@@ -1,0 +1,10 @@
+LOAD DATABASE
+     FROM sqlite:///Users/larspieters/Desktop/PERSONAL/PortfolioWebsite/smeshedup/server/.tmp/data.db
+     INTO postgresql://strapi_db_a3iu_user:d7LY31LSwyxYnsxbOkUmlxlFoGtiRh2l@dpg-d3l4h4ili9vc73ek1ua0-a.frankfurt-postgres.render.com:5432/strapi_db_a3iu?sslmode=require
+
+ WITH include no drop, create tables, create indexes, reset sequences, data only
+
+ CAST type datetime to timestamptz
+      USING (lambda (x) (pgloader.to-timestamp (/ x 1000.0)))
+
+ SET work_mem to '16MB', maintenance_work_mem to '512 MB';
