@@ -1,6 +1,5 @@
 // start-strapi.js
-// @ts-ignore
-const strapi = require('@strapi/strapi');
+const { createStrapi } = require('@strapi/strapi');
 
 process.on('unhandledRejection', (err) => {
     console.error('🔴 Unhandled Rejection:', err);
@@ -12,7 +11,7 @@ process.on('uncaughtException', (err) => {
 
 (async () => {
     try {
-        const app = await strapi().load();
+        const app = await createStrapi();
         await app.start();
         console.log('✅ Strapi started successfully');
     } catch (err) {
