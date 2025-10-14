@@ -1,20 +1,21 @@
-'use strict';
+export default {
+  async bootstrap({ strapi }) {
+    const db = strapi.db.connection;
+    try {
+      // Check if migration exists
+      const result = await db.raw(
+        "SELECT * FROM strapi_migrations WHERE name = '5.0.0-05-drop-slug-fields-index';"
+      );
 
-module.exports = {
-  /**
-   * An asynchronous register function that runs before
-   * your application is initialized.
-   *
-   * This gives you an opportunity to extend code.
-   */
-  register(/*{ strapi }*/) {},
-
-  /**
-   * An asynchronous bootstrap function that runs before
-   * your application gets started.
-   *
-   * This gives you an opportunity to set up your data model,
-   * run jobs, or perform some special logic.
-   */
-  bootstrap(/*{ strapi }*/) {},
+      // If not, mark it as completed so Strapi skips it
+      if (result.rows.length === 0) {
+        await db.raw(
+          "INSERT INTO strapi_migrations (name, time) VALUES ('5.0.0-05-drop-slug-fields-index', NOW());"
+        );
+        strapi.log.info('✅ Skipped failing migration 5.0.0-05-drop-slug-fields-index');
+      }
+    } catch (err) {
+      strapi.log.error('Error while skipping migration:', err);
+    }
+  },
 };
