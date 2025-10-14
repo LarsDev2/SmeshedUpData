@@ -1,17 +1,12 @@
-const path = require('path');
-
 module.exports = ({ env }) => ({
   connection: {
-    client: env('DATABASE_CLIENT', 'postgres'),
+    client: 'postgres',
     connection: {
-      host: env('DATABASE_HOST', 'localhost'),
-      port: env.int('DATABASE_PORT', 5432),
-      database: env('DATABASE_NAME', 'strapi'),
-      user: env('DATABASE_USERNAME', 'strapi'),
-      password: env('DATABASE_PASSWORD', 'strapi'),
-      ssl: env.bool('DATABASE_SSL', false)
-        ? { rejectUnauthorized: env.bool('DATABASE_SSL_REJECT_UNAUTHORIZED', false) }
-        : false,
+      connectionString: env('DATABASE_URL'),
+      ssl: {
+        rejectUnauthorized: false, // required for Render
+      },
+      schema: env('DATABASE_SCHEMA', 'public'),
     },
     pool: {
       min: env.int('DATABASE_POOL_MIN', 2),

@@ -7,9 +7,9 @@
     "console": "strapi console",
     "deploy": "strapi deploy",
     "dev": "strapi develop",
-    "build": "npx strapi build",
-    "start": "npx strapi start",
-    "develop": "npx strapi develop",
+    "build": "strapi build",
+    "start": "node start-strapi.js",
+    "develop": "strapi develop",
     "strapi": "strapi",
     "upgrade": "npx @strapi/upgrade latest",
     "upgrade:dry": "npx @strapi/upgrade latest --dry"
