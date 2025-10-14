@@ -1,3 +1,4 @@
+// start-strapi.js
 // @ts-ignore
 const strapi = require('@strapi/strapi');
 
@@ -11,8 +12,9 @@ process.on('uncaughtException', (err) => {
 
 (async () => {
     try {
-        const app = await strapi().load(); // ✅ works fine at runtime
+        const app = await strapi().load();
         await app.start();
+        console.log('✅ Strapi started successfully');
     } catch (err) {
         console.error('❌ Failed to start Strapi:', err);
     }
