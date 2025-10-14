@@ -1,10 +1,3 @@
-process.on('unhandledRejection', (err) => {
-  console.error('🔴 Unhandled Rejection:', err);
-});
-process.on('uncaughtException', (err) => {
-  console.error('🔴 Uncaught Exception:', err);
-});
-
 module.exports = ({ env }) => ({
   host: env('HOST', '0.0.0.0'),
   port: env.int('PORT', 1337),
